@@ -55,3 +55,16 @@ This section covers how to add new data streams. Possible data streams are separ
 Create a new python file in `backend/source/backup/models/`. Define the model class, and it should inherit from `BaseSource` usually, or `OAuthSource` if it requires OAuth access for the data.
 
 Create a `process` function that handles the creation of timeline "events" that should be considered individual events that can be displayed on the timeline.
+
+## Local Self-signed Certificates
+
+This software requires certificates for securely accessing the interface. For accessing locally during development there is much less risk of needing a secure connection. The following provides a simple process to generate basic certificates so the software can be used locally.
+
+``` bash
+cd proxy/ssl-certs
+openssl req -x509 -nodes -days 3650 -newkey rsa:4096 -keyout server.key -out cert-chain.crt
+```
+
+The `-days` argument is how many days the certificate should be value.
+
+You may need to provide location information on the command line after entering this command. It is all optional, and pressing `enter`/`confirm` for each question is o.k.
