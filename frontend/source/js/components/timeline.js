@@ -10,6 +10,7 @@ import TimelinePostTile from './tiles/post.js'
 import TimelineTextTile from './tiles/text.js'
 import TimelineMessageTile from './tiles/message.js';
 import TimelineMotionTile from './tiles/motion.js';
+import TimelineTraktTile from './tiles/trakt.js';
 import TimelineVideoTile from './tiles/video.js';
 import TransactionsTile from './tiles/transactions.js';
 import { RequestStatus } from './../models/requests.js';
@@ -120,6 +121,16 @@ export default Vue.component('timeline', {
           iconClass: 'fas fa-video',
           entries: [],
         },
+        films: {
+          readableName: 'films',
+          iconClass: 'fas fa-film',
+          entries: []
+        },
+        shows: {
+          readableName: 'TV episodes',
+          iconClass: 'fas fa-tv',
+          entries: [],
+        }
       };
 
       return this.entries.reduce(function(groups, entry) {
@@ -170,6 +181,15 @@ export default Vue.component('timeline', {
         if (entry.schema.startsWith('activity.exercise.session')) {
           groups.motion.entries.push(entry);
         }
+
+        if (entry.schema.startsWith('activity.watching.movie')) {
+          groups.films.entries.push(entry);
+        }
+
+        if (entry.schema.startsWith('activity.watching.show')) {
+          groups.shows.entries.push(entry);
+        }
+
         return groups;
       }, emptyGroups);
     },
@@ -203,6 +223,9 @@ export default Vue.component('timeline', {
       }
       else if(s.startsWith('activity.exercise.session')) {
         return 'motion-tile';
+      }
+      else if(s.startsWith('activity.watching')) {
+        return 'trakt-tile';
       }
     },
   },

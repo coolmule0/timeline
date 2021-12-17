@@ -21,7 +21,7 @@ export default Vue.component('settings', {
         <nav class="sidebar">
           <ul>
             <li><router-link :to="{ name: 'archives'}">Archives</router-link></li>
-            <li><router-link :to="{ name: 'archives'}">Sources</router-link></li>
+            <li><router-link :to="{ name: 'sources'}">Sources</router-link></li>
             <li><router-link :to="{ name: 'archives'}">Destinations</router-link></li>
           </ul>
         </nav>
